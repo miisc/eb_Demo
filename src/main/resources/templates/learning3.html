@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam - Paper</title>
+<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="../paginator/js/bootstrap-paginator.min.js"></script>
+<link rel="stylesheet" href="../css/my.css">
+<link rel="stylesheet" href="../paginator/css/pagination.css">
+<script th:inline="javascript">
+	var pageSize = 5;
+	$(document).ready(function() {		
+		$("#pageSize li").click(function(){
+			pageSize = $(this).text();			
+		});
+		
+		$(".panel-title").click(function() {
+			$(".answer").show();
+		});
+	});
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">HF eLearning</a>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Home</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Repository <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Import</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Single Choice <span class="badge">1</span></a></li>
+							<li><a href="#">Multiple Choice <span class="badge">2</span></a></li>
+							<li><a href="#">True/False <span class="badge">3</span></a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Practice <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Single Choice</a></li>
+							<li><a href="#">Multiple Choice</a></li>
+							<li><a href="#">True/False</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Examination<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Single Question</a></li>
+							<li><a href="#">Multiple Questions</a></li>
+						</ul></li>
+
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Help</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+	<div class="container"
+		th:unless="${#lists.isEmpty(questionListPerPage)}" id="example">
+		<h2>Single Choice</h2>
+		<div class="panel panel-primary" th:each="q:${questionListPerPage}">
+			<div class="panel-heading">
+				<h3 class="panel-title" th:text="'Question '+${q.id}">Question
+					1</h3>
+			</div>
+			<div class="panel-body">
+				<p th:text="${q.description}">description</p>
+				<div th:each="op:${q.optionList}">
+					<input type="radio" th:value="${op.id}" th:name="${q.id}" /> <label
+						th:text="${op.description}">A</label>
+				</div>
+				<div class="answer">
+					<HR align=center color=#987cb9 SIZE=5>
+					<p th:text="${q.answer}">answer</p>
+					<p th:text="${q.remarks}">remarks</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="btn-group dropup" id="questionNum-div">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="pageSize">
+						<li><a href="#">5</a></li>
+						<li><a href="#">10</a></li>
+						<li><a href="#">20</a></li>
+						<li><a href="#">50</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6 text-right">
+				<div id="page"></div>
+				<script th:inline="javascript">
+					/*<![CDATA[*/
+					var curPage = /*[[${page.pageNow}]]*/;
+					var tPages = /*[[${page.getTotalPageCount()}]]*/;
+					/*]]>*/				
+					
+					var options = {
+						currentPage : curPage,
+						totalPages : tPages,
+						numberOfPages : 5,
+						onPageClicked : function(event, originalEvent, type,pageNumber) {
+							$.ajax({	url : "/listQuestionByPage?pageNumber=" + pageNumber+"&pageSize="+pageSize,
+									//+"&questionType=单选",
+										type : "post",
+										dataType : "json",
+										success : function(data1) {
+											console.info(data1);
+											$("#example").empty();
+											page = data1.page;
+											list = data1.questionListPerPage;	
+											if (list != null) {
+												$.each(list,function(index,question) {
+																	var opListHtml='';
+																	var opList = question.optionList;
+																	for(x in opList){
+																		opListHtml = opListHtml + '<div>' 
+																					+ '<input type="radio" value='+ opList[x].id + ' name='+question.id +' />'
+																					+ '<label> ' + opList[x].description +' </label> </div>'
+																					
+																	}
+																	//console.info(opListHtml);
+																	var html = ' <div class="panel panel-primary" > '
+																			+ '<div class="panel-heading">'
+																			+ '<h3 class="panel-title">' + 'Question '+question.id + '</h3>'
+																			+ '</div>'
+																			+ '<div class="panel-body">'
+																			+ '<p>'+ question.description +'</p>'
+																			+ opListHtml
+																			+ '<div class="answer">'
+																			+ '<HR align="center" color="#987cb9" size=5>'
+																			+ '<p>' + question.answer +'</p>'
+																			+ '<p>' + question.remarks + '</p>'
+																			+ '</div>'
+																			+ '</div>'
+																			+ '</div>';
+																	//alert(html);
+																	$("#example").append(html);
+																});
+											} else {
+												$("#example").append('No data found');
+											}
+										},
+										error : function(data) {
+											alert("error: " + data);
+										}
+									});
+						}
+					};
+
+					$("#page").bootstrapPaginator(options);
+				</script>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

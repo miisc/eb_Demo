@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam - Paper</title>
+<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/my.css">
+<script th:inline="javascript">
+	
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">HF eLearning</a>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Home</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Repository <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Import</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Single Choice <span class="badge">1</span></a></li>
+							<li><a href="#">Multiple Choice <span class="badge">2</span></a></li>
+							<li><a href="#">True/False <span class="badge">3</span></a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Practice <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Single Choice</a></li>
+							<li><a href="#">Multiple Choice</a></li>
+							<li><a href="#">True/False</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Examination<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Single Question</a></li>
+							<li><a href="#">Multiple Questions</a></li>
+						</ul></li>
+
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Help</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+	<div class="container">
+		<h2>Single Choice</h2>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Question 1</h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary"><input type="radio">A</label>
+					<label class="btn btn-success"><input type="radio">B</label>
+					<label class="btn btn-warning"><input type="radio">C</label>
+					<label class="btn btn-info"><input type="radio">D</label>
+				</div>
+			</div>
+
+		</div>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">Question 2</h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary"><input type="checkbox">A</label>
+					<label class="btn btn-success"><input type="checkbox">B</label>
+					<label class="btn btn-warning"><input type="checkbox">C</label>
+					<label class="btn btn-info"><input type="checkbox">D</label>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Question 3</h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary"><input type="radio">True</label>
+					<label class="btn btn-success"><input type="radio">False</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="btn-group" id="questionNum-div">
+					<button type="button" class="btn btn-default">one per page</button>
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">5</a></li>
+						<li><a href="#">10</a></li>
+						<li><a href="#">20</a></li>
+						<li><a href="#">50</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6 text-right">
+				<ul class="pagination">
+					<li><a href="#" aria-label="Previous"> <span
+							aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

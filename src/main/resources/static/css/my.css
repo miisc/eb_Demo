@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+.pagination {
+	margin-top: 0;
+}
+
+.answer {
+	display: none;
+}
+
+#showAnswer {
+	margin-top: 0;
+}
