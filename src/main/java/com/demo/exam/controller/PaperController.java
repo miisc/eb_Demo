@@ -34,16 +34,18 @@ public class PaperController {
 	@RequestMapping("/generatePaper")
 	public String generatePaper(@RequestParam(required = false, defaultValue = "5", value = "count") int count,
 			Model model) {
-		int total = (int) qRepo.count();
+		int total = qRepo.count();
 		List<Question> qList = new ArrayList<Question>();
 		Random r = new Random();
 		for (int i = 0; i < count; i++) {
 			int id = r.nextInt((int) total) + 1;
-			qRepo.findById((long) id).ifPresent(q -> {
-				qList.add(q);
-			});
+			// qRepo.findById((long) id).ifPresent(q -> {
+			// qList.add(q);
+			// });
+			qList.add(qRepo.findById((long) id));
 		}
-		Paper paper = new Paper();	
+
+		Paper paper = new Paper();
 		paper.setQuestions(qList);
 		paper.setAnswers(new ArrayList<String>());
 		model.addAttribute("paper", paper);

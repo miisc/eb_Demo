@@ -28,7 +28,7 @@ public class ImportController {
 		List<Question> list = ImportUtil.importExcel(filePath, 0, 1, Question.class);
 
 		qRepo.saveAll(list);
-		Long qCount = qRepo.count();
+		int qCount = qRepo.count();
 		model.addAttribute("qCount", qCount);
 
 		log.info("Succeeded to import file " + filePath);
@@ -37,7 +37,7 @@ public class ImportController {
 
 	@RequestMapping("/")
 	public String index(Model model) {
-		Long qCount = qRepo.count();
+		int qCount = qRepo.count();
 		model.addAttribute("qCount", qCount);
 		return "index";
 	}

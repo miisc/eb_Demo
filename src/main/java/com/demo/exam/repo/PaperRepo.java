@@ -1,8 +1,8 @@
 package com.demo.exam.repo;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.demo.exam.entity.Paper;
-
-public interface PaperRepo extends CrudRepository<Paper, Long> {
+@Repository
+public class PaperRepo {
+	
 }

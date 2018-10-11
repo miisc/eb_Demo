@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.exam.entity.Question;
-import com.demo.exam.exception.NoQuestionFoundException;
 import com.demo.exam.repo.PaperRepo;
 import com.demo.exam.repo.QuestionRepo;
 import com.demo.exam.util.Page;
@@ -118,12 +117,12 @@ public class QuestionController {
 		Random r = new Random();
 
 		int id = r.nextInt((int) total) + 1;
-		Question question = null;
-		try {
-			question = qRepo.findById((long) id).orElseThrow(() -> new NoQuestionFoundException());
-		} catch (NoQuestionFoundException e) {
-			e.printStackTrace();
-		}
+		Question question = qRepo.findById((long) id);
+//		try {
+//			question = qRepo.findById((long) id).orElseThrow(() -> new NoQuestionFoundException());
+//		} catch (NoQuestionFoundException e) {
+//			e.printStackTrace();
+//		}
 		model.addAttribute(question);
 		return "practice";
 	}
