@@ -2,39 +2,33 @@ package com.demo.exam.repo;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.demo.exam.entity.Question;
 
-@Repository
-public class QuestionRepo {
+@Mapper
+public interface QuestionRepo {
 
-	public String findAnswerById(long id) {
-		return null;
-	}
+	@Select("select * from question where id = #{id}")
+	public Question findById(@Param("id") int id);
 
-	public long countByType(String type) {
-		return 0;
-	}
+	@Select("select * from question where type = #{type}")
+	public List<Question> findAllByType(@Param("type") String type);
 
-	public List<Question> findAllByType(String type) {
-		return null;
-	}
+	@Select("select answer from question where id = #{id}")
+	public String findAnswerById(@Param("id") long id);
 
-	public void saveAll(List<Question> list) {
-		// TODO Auto-generated method stub
+	@Select("select count(1) from question where type= #{type}")
+	public int countByType(@Param("type") String type);
 
-	}
+//	@Insert("insert into questions ")
+//	@Options(useGeneratedKeys = true, keyProperty = "id")
+//	public void saveAll(List<Question> list);
 
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int count();
 
-	public Question findById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Question findById(long id);
 
 }

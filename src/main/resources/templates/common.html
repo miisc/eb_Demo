@@ -18,13 +18,13 @@
 								<li><a href="#">Import</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a href="/question/list?questionType=singleChoice">Single
-										Choice <span class="badge">1</span>
+										Choice <span class="badge" th:text="${singleQuestionCount}">1</span>
 								</a></li>
 								<li><a href="/question/list?questionType=multipleChoice">Multiple
-										Choice <span class="badge">2</span>
+										Choice <span class="badge" th:text="${multipleQuestionCount}">2</span>
 								</a></li>
 								<li><a href="/question/list?questionType=trueFalse">True/False
-										<span class="badge">3</span>
+										<span class="badge" th:text="${trueFalseQuestionCount}">3</span>
 								</a></li>
 							</ul></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
