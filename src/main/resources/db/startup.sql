@@ -14,11 +14,10 @@
 --    limitations under the License.
 --
 
-drop table if exists city;
-drop table if exists hotel;
+drop table user if exists;
 
-create table city (id int primary key, name varchar(100), state varchar(100), country varchar(100));
-create table hotel (city int, name varchar(100), address varchar(200), zip varchar(50));
+create table user (id int primary key, username varchar(100), password varchar(100), role varchar(100));
 
-insert into city (id,name, state, country) values (1,'San Francisco', 'CA', 'US');
-insert into hotel(city, name, address, zip) values (1, 'Conrad Treasury Place', 'William & George Streets', '4001')
+
+insert into user (id, username, password, role) values (1,'nico', 'han', 'admin');
+

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <body>
@@ -7,48 +8,72 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">HF eLearning</a>
 				</div>
-				<div class="navbar-collapse collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<li><a href="#">Home</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Repository <span class="caret"></span>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Import</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="/question/list?questionType=singleChoice">Single
-										Choice <span class="badge" th:text="${singleQuestionCount}">1</span>
-								</a></li>
-								<li><a href="/question/list?questionType=multipleChoice">Multiple
-										Choice <span class="badge" th:text="${multipleQuestionCount}">2</span>
-								</a></li>
-								<li><a href="/question/list?questionType=trueFalse">True/False
-										<span class="badge" th:text="${trueFalseQuestionCount}">3</span>
-								</a></li>
-							</ul></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Practice <span class="caret"></span>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="/question/next">Single Choice</a></li>								
-							</ul></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">Examination<span class="caret"></span>
-						</a>
-							<ul class="dropdown-menu">
-								<li><a href="/generatePaper">Exam</a></li>
-								
-							</ul></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Help</a></li>
-						<li><a href="#">About</a></li>
-					</ul>
+				<div class="nav navbar-nav navbar-right" id="navbar">
+					<form th:if="${user.role} == null or ${user.username} == ''"
+						class="navbar-form navbar-right" th:action="@{/login}"
+						th:object="${user}" method="post">
+						<div class="form-group">
+							<input type="text" name="username" id="username"
+								class="form-control input-sm" placeholder="username"
+								th:value="*{username}" /> <input type="password"
+								class="form-control input-sm" name="password"
+								placeholder="password" th:value="*{password}" /> <input
+								type="submit" value="login" />
+							<div>
+								<ul th:if="${#fields.hasAnyErrors()}">
+									<li th:each="err : ${#fields.allErrors()}" th:text="${err}">error
+										message</li>
+								</ul>
+							</div>
+						</div>
+					</form>
 				</div>
+				<ul th:if="${user.username} !='' and ${user.role} != null "
+					class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false" th:text="${user.username}">HanHan <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="/logout">logout</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Home</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Repository <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Import</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="/question/list?questionType=singleChoice">Single
+									Choice <span class="badge" th:text="${singleQuestionCount}">1</span>
+							</a></li>
+							<li><a href="/question/list?questionType=multipleChoice">Multiple
+									Choice <span class="badge" th:text="${multipleQuestionCount}">2</span>
+							</a></li>
+							<li><a href="/question/list?questionType=trueFalse">True/False
+									<span class="badge" th:text="${trueFalseQuestionCount}">3</span>
+							</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Practice <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="/question/next">Single Choice</a></li>
+						</ul></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Examination<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="/generatePaper">Exam</a></li>
 
+						</ul></li>
+				</ul>
 			</div>
 		</nav>
 	</div>

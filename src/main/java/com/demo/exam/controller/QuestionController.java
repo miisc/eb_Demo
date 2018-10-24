@@ -10,19 +10,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.demo.exam.entity.Question;
+import com.demo.exam.entity.User;
 import com.demo.exam.repo.PaperRepo;
 import com.demo.exam.repo.QuestionRepo;
 import com.demo.exam.util.Page;
 
 @Controller
 @RequestMapping("/question")
+@SessionAttributes(types = { User.class }, value = { "currentUser" })
 public class QuestionController {
 
 	private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
@@ -33,6 +39,14 @@ public class QuestionController {
 	@Autowired
 	PaperRepo pRepo;
 
+	@ModelAttribute
+	public User getUserFromSession(ModelMap model, SessionStatus sessionStatus) {
+		User user = (User) model.get("currentUser");
+//		sessionStatus.setComplete();
+		log.info(user.toString());
+		return user;
+	}
+
 	/*
 	 * list question with default parameters
 	 * 
@@ -40,7 +54,8 @@ public class QuestionController {
 	@GetMapping("/list")
 	public String list(@RequestParam(required = false, defaultValue = "1") int pageNumber,
 			@RequestParam(required = false, defaultValue = "5") int pageSize, @RequestParam String questionType,
-			Model model) {
+			@ModelAttribute("currentUser") User user, Model model) {
+		log.info(user.toString());
 		switch (questionType) {
 		case "singleChoice":
 			questionType = "单选";
@@ -103,7 +118,6 @@ public class QuestionController {
 						: pageNumber * page.getPageSize());
 		map.put("questionListPerPage", questionListPerPage);
 		map.put("page", page);
-
 		log.info("list by page");
 		return map;
 	}
@@ -115,14 +129,8 @@ public class QuestionController {
 	public String nextQuestion(Model model) {
 		int total = (int) qRepo.count();
 		Random r = new Random();
-
 		int id = r.nextInt((int) total) + 1;
-		Question question = qRepo.findById((long) id);
-//		try {
-//			question = qRepo.findById((long) id).orElseThrow(() -> new NoQuestionFoundException());
-//		} catch (NoQuestionFoundException e) {
-//			e.printStackTrace();
-//		}
+		Question question = qRepo.findById(id);
 		model.addAttribute(question);
 		return "practice";
 	}

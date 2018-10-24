@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam - Paper</title>
+<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="../paginator/js/bootstrap-paginator.min.js"></script>
+</head>
+<body>
+	<div th:include="common :: nav-menu"></div>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="page-header">HF eLearning</h1>
+			<form th:action="@{/login}" th:object="${user}" method="post">
+				<div class="form-group">
+					<input type="text" name="username" id="username"
+						class="form-control input-sm" placeholder="username"
+						th:value="*{username}" /> <input type="password"
+						class="form-control input-sm" name="password"
+						placeholder="password" th:value="*{password}" /> <input
+						type="submit" value="login" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

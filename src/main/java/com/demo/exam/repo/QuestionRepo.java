@@ -23,12 +23,8 @@ public interface QuestionRepo {
 	@Select("select count(1) from question where type= #{type}")
 	public int countByType(@Param("type") String type);
 
-//	@Insert("insert into questions ")
-//	@Options(useGeneratedKeys = true, keyProperty = "id")
-//	public void saveAll(List<Question> list);
-
+	@Select("select count(1) from question")
 	public int count();
 
-	public Question findById(long id);
-
+	public void saveAll(List<Question> list);
 }

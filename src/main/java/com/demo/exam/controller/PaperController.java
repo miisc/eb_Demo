@@ -28,9 +28,6 @@ public class PaperController {
 	@Autowired
 	PaperRepo pRepo;
 
-	// @RequestMapping("/learning/queryByPage/{pageNumber:[0-9]*}")
-	// @PathVariable
-
 	@RequestMapping("/generatePaper")
 	public String generatePaper(@RequestParam(required = false, defaultValue = "5", value = "count") int count,
 			Model model) {
@@ -42,7 +39,7 @@ public class PaperController {
 			// qRepo.findById((long) id).ifPresent(q -> {
 			// qList.add(q);
 			// });
-			qList.add(qRepo.findById((long) id));
+			qList.add(qRepo.findById(id));
 		}
 
 		Paper paper = new Paper();
