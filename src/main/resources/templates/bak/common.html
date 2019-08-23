@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+	<div th:fragment="nav-menu">
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">eB</a>
+				</div>
+				<div class="nav navbar-nav navbar-right" id="navbar"
+					sec:authorize="isAnonymous()">
+					<form class="navbar-form navbar-right" th:action="@{/login}"
+						th:object="${user}" method="post">
+						<div class="form-group">
+							<input type="text" name="username" id="username"
+								class="form-control input-sm" placeholder="username"
+								th:value="*{username}" /> <input type="password"
+								class="form-control input-sm" name="password"
+								placeholder="password" th:value="*{password}" /> <input
+								type="submit" value="login" />
+							<div>
+								<ul th:if="${#fields.hasAnyErrors()}">
+									<li th:each="err : ${#fields.allErrors()}" th:text="${err}">error
+										message</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			
+					<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false" sec:authentication="principal.username">HanHan
+								<span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="/logout">logout</a></li>
+							</ul></li>
+					</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Search</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle"	data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							Data and Document Explorer <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Document Tree</a></li>
+							<li><a href="#">Asset Register Tree</a></li>
+							<li><a href="#">Commissioning Tree</a></li>
+							<li><a href="/question/list?questionType=trueFalse">True/False
+									<span class="badge">3</span>
+							</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Reports <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Electrical</a></li>
+							<li><a href="#">Instrumentation</a></li>
+							<li><a href="#">Mechanical</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">DMS<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">KDL - Key Document Library</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</body>
+</html>

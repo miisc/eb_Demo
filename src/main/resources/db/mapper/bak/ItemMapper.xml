@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2015-2016 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.eb.dao.ItemDAO">
+	<!-- <insert id="saveAll"> <selectKey keyProperty="id" resultType="long" 
+		order="BEFORE"> select max(id)+1 from question </selectKey> insert into Question 
+		(id, oid, type, description, options, answer, comment) values <foreach item="q" 
+		collection="list" separator=","> (#{id}, #{q.oid}, #{q.type}, #{q.description}, 
+		#{q.options}, #{q.answer}, #{q.comment}) </foreach> </insert> -->
+
+	<select id="findItemByUID" parameterType="int" resultMap="ItemResultMap">
+		select
+		taggeditemuid, taggeditemid, taggeditemname,operational_status,		
+		d.documentuid, d.documentid,
+		d.documentName, d.documentClassName,
+		d.ebDocumentClassName, d.creation
+		from cdbcopy.asset_taggeditem i left
+		outer join
+		cdbcopy.asset_objectdocument d
+		on i.taggeditemuid =
+		d.objectuid 
+		where
+		i.taggeditemuid = #{uid}
+	</select>
+	<resultMap id="ItemResultMap" type="Item">
+		<constructor>
+		</constructor>
+		<id property="uid" column="taggeditemuid"></id>
+		<result property="id" column="taggeditemid" />
+		<result property="name" column="taggeditemname" />
+		<result property="status" column="operational_status" />
+		
+		<collection property="documents" ofType="Document"
+			resultMap="documentResultMap">
+		</collection>
+
+	</resultMap>
+	
+	<resultMap id="documentResultMap" type="Document">
+		<id property="uid" column="documentuid"></id>
+		<result property="id" column="documentid" />
+		<result property="name" column="documentName" />
+		<result property="documentClass" column="documentClassName" />
+		<result property="ebDocumentClass" column="ebDocumentClassName" />
+		<result property="creationDate" column="creation" />
+	</resultMap>
+	<select id="findItemByID" parameterType="String" resultMap="ItemResultMap">
+		select
+		taggeditemuid, taggeditemid, taggeditemname,operational_status,
+		d.documentuid, d.documentid, d.documentName, d.documentClassName,
+		d.ebDocumentClassName, d.creation
+		from cdbcopy.asset_taggeditem i left
+		outer join
+		cdbcopy.asset_objectdocument d
+		on i.taggeditemuid =
+		d.objectuid
+		where i.taggeditemid = #{id}
+	</select>
+
+	<select id="findItemByName" parameterType="String" resultMap="ItemResultMap">
+		select
+		taggeditemuid, taggeditemid, taggeditemname,operational_status,
+		d.documentuid, d.documentid, d.documentName, d.documentClassName,
+		d.ebDocumentClassName, d.creation
+		from cdbcopy.asset_taggeditem i left
+		outer join cdbcopy.asset_objectdocument d
+		on i.taggeditemuid =
+		d.objectuid
+		where i.taggeditemname like #{name}
+	</select>
+
+</mapper>

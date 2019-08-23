@@ -1,0 +1,475 @@
+﻿body
+{
+}
+
+#ContentDiv A:active
+{
+    color: #0050aa;
+    text-decoration: none;
+}
+
+#ContentDiv A:hover
+{
+    color: #0050aa;
+    text-decoration: underline;
+}
+#ContentDiv A:link
+{
+    color: #0050aa;
+    text-decoration: none;
+}
+#ContentDiv A:visited
+{
+    color: #0050aa;
+    text-decoration: none;
+}
+
+h3
+{
+    font-weight: bold;
+    font-size: 14pt;
+    color: #3366ff;
+}
+h4
+{
+    font-size: 10pt;
+    color: #3366ff;
+}
+
+.LogonTextbox
+{
+    width: 150px;
+}
+.ProjectDropDownList
+{
+    width: 300px;
+}
+
+.SearchTextbox
+{
+    width: 350px;
+    padding-left: 5px;
+}
+.SearchTextbox2
+{
+    height: 20px;
+    width: 383px;
+}
+.SearchButton
+{
+    width: auto;
+    vertical-align: middle;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+    text-align: center;
+    border-bottom-style: solid;
+    font-family: Arial;
+}
+.SearchImage
+{
+    height: 21px;
+    width: 26px;
+}
+.DDLFac
+{
+    color: #333333;
+    font-family: Arial;
+    font-size: 9pt;
+    width: 240px;
+    padding-left: 5px;
+}
+.OptionButtons
+{
+    color: #333333;
+    font-family: Arial;
+    font-size: 9pt;
+}
+.URLLink
+{
+    font-family: Arial;
+    font-size: 9pt;
+}
+.LinkButton
+{
+    font-family: Arial;
+    font-size: 9pt;
+}
+.MainDiv
+{
+    vertical-align: middle;
+    text-align: left;
+    background-color: #e6f8fc;
+    color: #333333;
+    padding-right: 5px;
+    font-family: Arial;
+    font-size: 9pt;
+}
+.ProjectLogo
+{
+    overflow: visible;
+}
+.ProjectLogo2
+{
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    border-bottom-style: none;
+}
+.LCSBanner
+{
+    overflow: visible;
+}
+.IDLabel
+{
+    font-weight: bold;
+    font-size: 12pt;
+    color: #009dd9;
+}
+.MessageLabel
+{
+    color: red;
+}
+.DetailSectionLabel
+{
+    font-size: 12pt;
+    color: #6ea20a;
+    letter-spacing: 1px;
+    text-align: left;
+    vertical-align: middle;
+    font-family: Arial;
+    font-weight: bold;
+    background-color: Transparent;
+    border-bottom: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-top-style: none;
+}
+
+.TableDetails
+{
+    font-size: 9pt;
+    font-family: Arial;
+}
+.TableRow
+{
+    background-color: #e6f8fc;
+    text-align: left;
+    color: #333333;
+    width: inherit;
+}
+.TableAlternateRow
+{
+    background-color: white;
+    text-align: left;
+    color: #333333;
+    width: inherit;
+}
+.TableColumnSep
+{
+    background-color: White; /*color:#dddddd;*/
+    color: #e6f8fc;
+}
+
+.TDBasicDetailsColumn1
+{
+    /*width: 250px;*/
+    width: 30%;
+    overflow: visible;
+    background-color: #e6f8fc;
+    text-align: left; /*text-indent:5px;*/
+    color: #333333;
+}
+.TDBasicDetailsColumn2
+{
+    /*width: 550px;*/
+    width: 70%;
+    overflow: visible;
+    background-color: #e6f8fc;
+    text-align: left; /*text-indent:5px;*/
+    color: #333333;
+}
+.TDBasicDetailsColumn1Alternate
+{
+    /*width: 250px;*/
+    width: 30%;
+    overflow: visible;
+    background-color: white;
+    text-align: left; /*text-indent:5px;*/
+    color: #333333;
+}
+.TDBasicDetailsColumn2Alternate
+{
+    /*width: 550px;*/
+    width: 70%;
+    background-color: white;
+    text-align: left; /*text-indent:5px;*/
+    color: #333333;
+}
+
+
+.TDBasicDetailsColumn2_EditMode
+{
+    width: 525px;
+    color: Navy;
+}
+.TDBasicDetailsColumn2_FindButton
+{
+    width: 16px;
+    height: 16Px;
+    background-color: Transparent;
+}
+.TDDocumentReferencesColumn1
+{
+    /*width: 550px;*/
+    width: 30%;
+    overflow: auto;
+    background-color: Transparent;
+    color: #333333;
+}
+.TDDocumentReferencesColumn2
+{
+    /*width: 550px;*/
+    width: 70%;
+    overflow: auto;
+    background-color: Transparent;
+    color: #333333;
+}
+.TextBoxInTableCell
+{
+    /*width: 250px;*/
+    width: 100%;
+    overflow: visible;
+    background-color: Transparent;
+    color: #333333;
+    height: inherit;
+    border-style: none;
+}
+
+.TDTechnicalDetailsColumn1
+{
+    /*width: 250px;*/
+    width: 30%; /*overflow:visible;*/
+    background-color: Transparent;
+    color: #333333;
+}
+.TDTechnicalDetailsColumn2
+{
+    /*width: 450px;*/
+    width: 60%; /*overflow:visible;*/
+    background-color: Transparent;
+    color: #333333;
+}
+.TDTechnicalDetailsColumn2_EditMode
+{
+    width: 450px;
+    background-color: Transparent;
+    color: Navy;
+}
+.TDTechnicalDetailsColumn3
+{
+    /*width: 100px;*/
+    width: 10%;
+    background-color: Transparent;
+    color: #333333;
+}
+.TDTechnicalDetailsColumn3_EditMode
+{
+    width: 100px;
+    background-color: Transparent;
+    color: Navy;
+}
+.TDAssocsColumn1
+{
+    /*width: 125px;*/
+    width: 10%;
+    overflow: visible;
+    background-color: Transparent;
+    color: #333333;
+}
+.TDAssocsColumn2
+{
+    /*width: 125px;*/
+    width: 20%;
+    overflow: visible;
+    background-color: Transparent;
+    color: #333333;
+}
+.TDAssocsColumn3
+{
+    /*width: 550px;*/
+    width: 70%;
+    overflow: visible;
+    background-color: Transparent;
+    color: #333333;
+}
+.ObjectNameStyle
+{
+    font-size: 9pt;
+    font-family: Arial;
+}
+.AdditionalTextStyle
+{
+    font-size: 8pt;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ObjectListDiv
+{
+    overflow: scroll;
+    text-align: left;
+}
+.TitleText
+{
+    color: #009dd9;
+    font-size: 12pt;
+}
+.VersionLabel
+{
+    color: blue;
+    font-family: Arial;
+    font-size: 9pt;
+}
+.LabelSpacer
+{
+    width: 100px;
+}
+.topl
+{
+    font-family: Arial;
+    font-size: 70%;
+    font-style: normal;
+    font-weight: normal;
+    text-align: center;
+    color: #0050aa;
+    background-color: #ffffff;
+}
+
+.ObjectListHeader
+{
+    font-weight: bold;
+    font-size: 12pt;
+    color: #009dd9;
+    font-family: Arial;
+}
+
+.ObjectListCountLabel
+{
+    font-weight: bold;
+    font-size: 8pt;
+    color: #6ea20a;
+    font-family: Arial;
+}
+
+.ExpandCollapseButton
+{
+    width: 23px;
+    height: 16px;
+    border-bottom-style: none;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    font-size: 11pt;
+    background-color: #6ea20a;
+    color: White;
+    vertical-align: top;
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-right: 2px;
+}
+
+.ExpandCollapseButtonInner
+{
+    width: 23px;
+    height: 16px;
+    border-bottom-style: none;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    font-size: 11pt;
+    background-color: #9BC4E2;
+    color: White;
+    vertical-align: top;
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-right: 2px;
+}
+
+.modalBackground
+{
+    background-color: black;
+    filter: alpha(opacity=30);
+    opacity: 0.3;
+    z-index: 10000;
+}
+.SubHeading
+{
+    color: #330099;
+    font-size: medium;
+    font-weight: bold;
+}
+.PopUpPanel
+{
+    border: solid 3px #0057b0;
+    background-color: White;
+}
+
+/* Following classes are to be set accordingly for the Association UI part on Search-Details page*/
+.CenterAlign
+{
+    text-align: center;
+}
+.TableWidth
+{
+    width: 100%;
+}
+.FildSetSize, TitleText
+{
+    font-size:10pt;
+}
+.MarginLeft
+{
+    margin-left:40%;
+}
+.FontBold
+{
+    font-weight:bold;
+}
+
+.AutoScrolling
+{
+    overflow-x:auto;
+    overflow-y:auto !important;
+}
+
+.BottomAlign
+{
+    vertical-align:text-bottom;
+}
+
+.HideScrollBar
+{
+    background-color:White; 
+    scrollbar-shadow-color:White;
+    scrollbar-highlight-color:White;
+    scrollbar-face-color:White;
+    scrollbar-3dlight-color:White;
+    scrollbar-darkshadow-color:White;
+    scrollbar-track-color:White;
+    scrollbar-arrow-color:White;
+}
+/*End*/
+.HighlightSearchResult
+{
+    background-color:Yellow;
+}
+.SeperatorStyle
+{
+    background-color:#4F81BD; 
+    width:313px;
+    height:18px;
+    color:White;
+    font-weight:bold
+}

@@ -4,33 +4,55 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Exam - Paper</title>
-<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<title>FED Demo Home Page</title>
+<link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+<link href="css/footer.css" rel="stylesheet">
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
 <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="../js/jquery-3.3.1.min.js"></script>
-<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script src="../paginator/js/bootstrap-paginator.min.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div th:include="common :: nav-menu"></div>
+
+	<div th:include="common :: nav-header"></div>
 	<div class="container">
-		<div class="jumbotron">
-			<h1 class="page-header">HF eLearning</h1>
-			<p>HF exam system functions:
-			<ol>
-				<li>Repository</li>
-				<li>Practice</li>
-				<li>Exam</li>
-			</ol>
-			<p>
-				<a class="btn btn-lg btn-primary" href="#">start</a>
-			</p>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title">Chuandongbei Gas Project 川东北天然气项目</h4>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-8">
+						<p>The Chuandongbei (CDB) gas project is one of the largest
+							onshore gas projects developed in cooperation between an
+							international oil company and a Chinese national oil company in
+							China. Covering an area of over 800 square kilometers in Sichuan
+							Province and Chongqing Municipality in southwest China, the
+							project is estimated to contain total potentially recoverable
+							natural gas resources of 3 trillion cubic feet. The CDB Project
+							is significant to southwest China as it will bring reliable,
+							affordable and clean energy to the people in this region. The
+							first stage of the CDB Project includes a gas processing plant, a
+							sulfur plant, a comprehensive pipeline network and safety
+							monitoring systems. Its first stage design outlet capacity of
+							approximately 258 million cubic feet per day or about 94.2
+							billion cubic feet per year is enough natural gas to supply a
+							city the size of Hong Kong for nearly one year.</p>
+						<p>川东北天然气项目（川东北项目）是由国际石油公司与中国国有石油公司合作开发的中国陆上最大的天然气项目之一。川东北项目地跨中国西南部的四川省和重庆市，占地面积超过800平方公里，预计潜在可开采天然气总量达3万亿立方英尺。川东北项目对中国西南部地区意义重大，将为该地区人民提供可靠、经济的清洁能源。川东北项目一期包含一座天然气净化厂、一座硫磺厂、一套完整的管道网络以及多套安全监测系统。项目一期的设计输出气量约为2.58亿立方英尺/天（约942亿立方英尺/年），相当于可为与香港同等规模的城市提供将近一年所需的天然气</p>
+					</div>
+					<div class="col-lg-4">
+						<img height="400px" width="360px"
+							src="img/Tag Count by Discipline_Pie_Image.png">
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
+	<div th:include="common :: footer"></div>
 </body>
 </html>

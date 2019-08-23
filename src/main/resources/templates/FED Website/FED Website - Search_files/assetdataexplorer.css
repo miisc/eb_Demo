@@ -1,0 +1,185 @@
+﻿#PortalPageBody {
+	
+	background: #2E8BC4 url(IMAGES/back_all.gif) repeat-y center;
+	font: 13px Arial, Helvetica, sans-serif;
+	color: #383838;
+}
+
+#back
+{
+background: #ffffff;
+width: 700px;
+}
+
+#main
+{
+width: 700px;
+padding: 10px;
+}
+
+#imgHeader
+{
+	overflow: visible;
+}
+
+#imgProjectLogo
+{
+	overflow: visible;
+}
+
+H4
+{
+	font-weight: bold;
+	font-size: small;
+}
+
+#AssetDataExplorer a
+{
+	color: #0050aa;
+	text-decoration: none;
+	font-size: 9pt;
+	font-family: Arial;
+}
+
+#AssetDataExplorer a:link {
+	color:  #0050aa;
+	text-decoration: none;
+	font-size: 9pt;
+	font-family: Arial;
+}
+
+#AssetDataExplorer a:visited {
+	color: #0050aa;
+	text-decoration: none;
+	font-size: 9pt;
+	font-family: Arial;
+}
+
+#AssetDataExplorer a:hover {
+	color: #0050aa;
+	text-decoration: none;
+	font-size: 9pt;
+	font-family: Arial;
+}
+
+.trTableDisplayHeaderRow
+{
+	background-color: lightsteelblue;
+	font-weight: bold;
+	color: black;
+}
+
+.trTableDisplayRow
+{
+	background-color: lavender;
+	color: black;
+	font-size: 8pt;
+}
+
+.tdColumn1
+{
+	width: 200px;
+}
+
+.tdColumn2
+{
+	width: 500px;
+}
+
+.tdColumn3
+{
+	width: 25px;
+}
+
+.TreeNode {
+	color: #333333;
+	text-decoration: none;
+}
+
+.TreeSelectedNode
+{
+	color: #3300ff;
+	text-decoration: none;
+	background-color: silver;
+}
+.tdColumnIndicator
+{
+	width: 20px;
+}
+
+.tdColumnDocNo
+{
+	width: 150px;
+}
+
+.tdColumnRevNo
+{
+	width: 30px;
+}
+
+.tdColumnRevDate
+{
+	width: 55px;
+}
+
+.tdColumnDocTitle
+{
+	width: 200px;
+}
+
+.tdColumnIssueStatus
+{
+	width: 85px;
+}
+
+.tdColumnOriginator
+{
+	width: 85px;
+}
+
+.tdColumRecipient
+{
+	width: 85px;
+}
+
+.TreeCaption
+{
+	COLOR: #009dd9; 
+	LETTER-SPACING: 1px
+}
+
+.marqueeStyle
+{
+	font-size: 14pt;
+	font-weight: bold;
+	color: #3399ff;
+}
+.MessageLabel
+{
+	color: red;
+}
+.SiteLocationLabel
+{
+	color: blue;
+	font-weight: bold;
+	font-size: 16pt;
+}
+.PortalPageText
+{
+	font-weight: bold;
+	font-size: small;
+}
+
+.hrDivider
+{
+	width: 300px;
+}
+
+.hrDivider2
+{
+	width: 200px;
+}
+.frame
+{
+	overflow:visible;
+}

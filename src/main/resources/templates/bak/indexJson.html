@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FED Demo</title>
+<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("button").click(function() {
+			var keyword = $("input").val();
+			alert(keyword);
+
+			$.getJSON("/findItemByUID/" + keyword, function(result) {
+				$.each(result, function(i, item) {
+					$("#item").append(item + " ");
+				});
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<!-- 
+	<div th:include="common :: nav-menu"></div>
+ 	 -->
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="page-header">FED Application Demo</h1>
+			<p>built by Nico</p>
+		</div>
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">Search!</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<HR align=center color=#987cb9 SIZE=5>
+	<div class="container">
+		<div id="item" class="row" th:unless="${#list.isEmpty(item)}">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Details For Item: <span>item1</span></h4>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<tr>
+							<th>Identification Details 鉴定详情</th>
+						</tr>
+						<tr>
+							<td>ID 位号</td>
+							<td>100</td>
+						</tr>
+						<tr>
+							<td>Name 名称</td>
+							<td>name</td>
+						</tr>
+						<tr>
+							<td>Class 类型 </td>
+							<td>name</td>
+						</tr>
+						<tr>
+							<td>Facility 设施</td>
+							<td>name</td>
+						</tr>
+						<tr>
+							<td>System 系统</td>
+							<td>name</td>
+						</tr>
+						<tr>
+							<th>Document References 参考文件</th>
+						</tr>
+						<tr>
+							<td>Data Sheet</td>
+							<td>filename</td>
+						</tr>
+						<tr>
+							<th>Associations 联系</th>
+						</tr>
+						<tr>
+							<td>Connected From</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Connected To</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<th>Technical Details 技术详情</th>
+						</tr>
+						<tr>
+							<td>Attribute Name</td>
+							<td>1</td>
+						</tr>
+						
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

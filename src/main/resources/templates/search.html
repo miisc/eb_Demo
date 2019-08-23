@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FED Demo</title>
+<link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+<link href="css/footer.css" rel="stylesheet">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+	/* $(document).ready(function() {
+		$("button").click(function() {
+			var keyword = $("input").val();
+			//alert(keyword);
+			window.location.href = "/searchKeyword";
+		});
+	}); */
+</script>
+
+<style type="text/css"></style>
+</head>
+<body>
+	<div th:include="common :: nav-header"></div>
+	<HR align=center color=#987cb9 SIZE=5>
+	<div th:include="common :: searchBar"></div>
+
+	<HR align=center color=#987cb9 SIZE=5>
+
+	<div class="container" th:unless="${recordCount} == 0">
+		<div class="row">
+			<div class="col-md-4">
+				<h5>Tagged Items/Instrument Loops有位号的设备</h5>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - ID Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemID)}"
+						th:each="item : ${itemID}"
+						th:if="${item.className} eq 'TAGGED ITEM'">
+						<a th:href="'findItemDetailsByID/'+${item.id}"> <span
+							th:text="${item.id} +' : '+ ${item.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - Classification Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemClass)}"
+						th:each="item : ${itemClass}"
+						th:if="${item.className} eq 'TAGGED ITEM'">
+						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
+							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
+							系统 : 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span> Results - Description Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemName)}"
+						th:each="item : ${itemName}"
+						th:if="${item.className} eq 'TAGGED ITEM'">
+						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
+							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
+							系统 : 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h5>Lines / Line Segments 管线</h5>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - ID Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemID)}"
+						th:each="item : ${itemID}" th:if="${item.className} eq 'LINE'">
+						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
+							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
+							系统 : 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - Classification Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemClass)}"
+						th:each="item : ${itemClass}" th:if="${item.className} eq 'LINE'">
+						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
+							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
+							系统 : 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span> Results - Description Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(itemName)}"
+						th:each="item : ${itemName}" th:if="${item.className} eq 'LINE'">
+						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
+							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
+							系统 : 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h5>Documents 文件</h5>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - ID Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(docID)}"
+						th:each="doc : ${docID}">
+						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+							: 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span>Results - Classification Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(docClass)}"
+						th:each="doc : ${docClass}">
+						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+							: 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span> Results - Description Match</span>
+					</div>
+					<div class="panel-body" th:unless="${#lists.isEmpty(docName)}"
+						th:each="doc : ${docName}">
+						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+							: 003, Sub System 子系统 : 003-011 </span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="common :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2015-2016 the original author or authors. Licensed under the 
+	Apache License, Version 2.0 (the "License"); you may not use this file except 
+	in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.eb.dao.ItemDAO">
+
+	<sql id="itemColumns">${alias}.taggeditemuid uid, ${alias}.taggeditemID id,
+		${alias}.taggeditemname name, ${alias}.operational_status status,
+		${alias}.essiClass className, ${alias}.facilityName, ${alias}.systemName,
+		${alias}.subSystemName, ${alias}.locationName,
+		${alias}.subLocationName
+	</sql>
+
+	<select id="findItemByID" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from cdbcopy.asset_taggeditem c where taggeditemID = #{taggeditemID}
+	</select>
+
+	<select id="findItemByName" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from cdbcopy.asset_taggeditem c
+		where c.taggeditemname like
+		Concatenate('%',#{itemName},'%')
+	</select>
+
+
+	<select id="findParentItemByID" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="p"></property>
+		</include>
+		from cdbcopy.asset_taggeditem c
+		inner join cdbcopy.asset_taggeditem p
+		on c.parentid = p.taggeditemID
+		where
+		c.taggeditemID = #{taggeditemID}
+	</select>
+
+
+
+	<select id="findChildItemByID" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from cdbcopy.asset_taggeditem c inner join cdbcopy.asset_taggeditem p
+		on c.parentid = p.taggeditemID
+		where p.taggeditemID = #{taggeditemID}
+	</select>
+
+	<select id="findConnectFromItemByID" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from [cdbcopy].[asset_connectedfrom] cf inner join
+		[cdbcopy].[asset_taggeditem] c
+		on c.taggeditemid = cf.CONNECTEDFROMID
+		where cf.objectid = #{taggeditemID}
+	</select>
+
+	<select id="findConnectToItemByID" parameterType="String"
+		resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from [cdbcopy].[asset_connectedTo] ct inner join
+		[cdbcopy].[asset_taggeditem] c
+		on c.taggeditemid = ct.CONNECTEDTOID
+		where ct.objectid = #{taggeditemID}
+	</select>
+
+
+	<select id="findDocumentByItemID" parameterType="String"
+		resultType="Document">
+		select distinct d.documentuid uid, d.documentid id,
+		d.documentname name, i.documentclassname, i.ebdocumentclassname,
+		d.[DMS URL]
+		from [cdbcopy].[asset_objectdocument] i inner join
+		[cdbcopy].[asset_document] d
+		on i.documentuid = d.documentuid
+		where
+		i.objectid = #{taggeditemID}
+	</select>
+
+	<select id="findAttributeByItemID" parameterType="String"
+		resultType="ItemAttribute">
+		select cls.classname, att.attributename, att.attributevalue
+		from cdbcopy.asset_taggednormalattribute att inner join
+		cdbcopy.asset_classinfo cls on att.attributeclassuid = cls.subclassuid
+		where att.identifier = #{taggeditemID}
+		order by 1;
+	</select>
+
+	<!-- get all item info together -->
+
+	<select id="findItemDetailsByID" parameterType="String"
+		resultMap="ItemDetailsMap">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from cdbcopy.asset_taggeditem c
+		where taggeditemID = #{taggeditemID}
+	</select>
+
+	<resultMap id="ItemDetailsMap" type="Item">
+		<id property="uid" column="uid"></id>
+
+		<association property="parentItem" javaType="Item"
+			column="id" select="findParentItemByID">
+		</association>
+
+		<collection property="childItems" javaType="ArrayList"
+			column="id" select="findChildItemByID" />
+
+		<collection property="connectedFromItems"
+			javaType="ArrayList" column="id" select="findConnectFromItemByID" />
+
+		<collection property="connectedToItems"
+			javaType="ArrayList" column="id" select="findConnectToItemByID" />
+
+		<collection property="documents" javaType="ArrayList"
+			column="id" select="findDocumentByItemID" />
+
+		<collection property="attributes" javaType="ArrayList"
+			column="id" select="findAttributeByItemID" />
+	</resultMap>
+
+	<resultMap id="ItemResultMap1" type="Item">
+		<id property="uid" column="UID"></id>
+		<result property="id" column="ID" />
+		<result property="name" column="Name" />
+		<result property="className" column="ClassName" />
+	</resultMap>
+	<resultMap id="ItemAttributeResultMap" type="ItemAttribute">
+		<result property="groupName" column="ATTRIBUTEGROUP" />
+		<result property="attributeName" column="ATTRIBUTENAME" />
+		<result property="attributeValue" column="ATTRIBUTEVALUE" />
+	</resultMap>
+	<resultMap id="documentResultMap" type="Document">
+		<id property="uid" column="documentuid"></id>
+		<result property="id" column="documentid" />
+		<result property="name" column="documentName" />
+		<result property="documentClassName" column="documentClassName" />
+		<result property="ebDocumentClassName"
+			column="ebDocumentClassName" />
+		<result property="docUrl" column="docUrl" />
+		<result property="creationDate" column="creation" />
+	</resultMap>
+
+	<select id="searchItemIDByKword" resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from
+		cdbcopy.asset_taggeditem c
+		<where>
+			<if test=" matchWholeWord == true">
+				taggeditemID = #{kword}
+			</if>
+			<if test=" matchWholeWord == false">
+				taggeditemID like concat('%',#{kword},'%')
+			</if>
+			<if test=" searchType == 'item' ">
+				and c.essiClass = 'TAGGED ITEM'
+			</if>
+			<if test=" searchType == 'line' ">
+				and c.essiClass = 'LINE'
+			</if>
+		</where>
+	</select>
+
+	<select id="searchItemClassByKword" resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from
+		cdbcopy.asset_taggeditem c
+		<where>
+			<if test=" matchWholeWord == false">
+				className like
+				concat('%',#{kword},'%')
+			</if>
+			<if test=" matchWholeWord == true">
+				className = #{kword}
+			</if>
+			<if test=" searchType == 'item' ">
+				and c.essiClass = 'TAGGED ITEM'
+			</if>
+			<if test=" searchType == 'line' ">
+				and c.essiClass = 'LINE'
+			</if>
+		</where>
+	</select>
+
+	<select id="searchItemNameByKword" resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from
+		cdbcopy.asset_taggeditem c
+		<where>
+			<if test=" matchWholeWord == false">
+				taggedItemName like concat('%',#{kword},'%')
+			</if>
+			<if test=" matchWholeWord == true">
+				taggedItemName = #{kword}
+			</if>
+			<if test=" searchType == 'item' ">
+				and c.essiClass = 'TAGGED ITEM'
+			</if>
+
+			<if test=" searchType == 'line' ">
+				and c.essiClass = 'LINE'
+			</if>
+		</where>
+	</select>
+
+	<select id="searchDocIDByKword" resultType="Document">
+		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		from
+		cdbcopy.asset_document c
+		<where>
+			<if test=" matchWholeWord == true">
+				documentID = #{kword}
+			</if>
+			<if test=" matchWholeWord == false">
+				documentID like concat('%',#{kword},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="searchDocClassByKword" resultType="Document">
+		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		from
+		cdbcopy.asset_document c
+		<where>
+			<if test=" matchWholeWord == true">
+				className = #{kword}
+			</if>
+			<if test=" matchWholeWord == false">
+				className like concat('%',#{kword},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="searchDocNameByKword" resultType="Document">
+		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		from
+		cdbcopy.asset_document c
+		<where>
+			<if test=" matchWholeWord == false">
+				documentName like concat('%',#{kword},'%')
+			</if>
+			<if test=" matchWholeWord == true">
+				documentName = #{kword}
+			</if>
+		</where>
+	</select>
+
+	<select id="searchByKword" resultType="Item">
+		select distinct
+		<include refid="itemColumns">
+			<property name="alias" value="c"></property>
+		</include>
+		from
+		cdbcopy.asset_taggeditem c
+		<where>
+			<if test="IDOnly == true and matchWholeWord == true">
+				taggeditemID = #{kword}
+			</if>
+			<if test="IDOnly == true and matchWholeWord == false">
+				taggeditemID like concat('%',#{kword},'%')
+			</if>
+			<if test="IDOnly == false and matchWholeWord == false">
+				taggeditemID like concat('%',#{kword},'%') or
+				taggedItemName like concat('%',#{kword},'%') or
+				className like
+				concat('%',#{kword},'%')
+			</if>
+			<if test="IDOnly == false and matchWholeWord == true">
+				taggeditemID = #{kword} or
+				taggedItemName = #{kword} or
+				className = #{kword}
+			</if>
+			<if test=" searchType == 'item' ">
+				and c.essiClass = 'TAGGED ITEM'
+			</if>
+
+			<if test=" searchType == 'line' ">
+				and c.essiClass = 'LINE'
+			</if>
+		</where>
+	</select>
+</mapper>

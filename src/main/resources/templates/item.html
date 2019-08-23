@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FED Demo</title>
+<link rel="stylesheet" href="../bootstrap-3.3.7/css/bootstrap.min.css">
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("button").click(function() {
+			var keyword = $("input").val();
+			//alert(keyword);
+			window.location.href = "/findItemByID/" + keyword;
+		});
+	});
+</script>
+
+<style type="text/css">
+</style>
+</head>
+<body>
+	<!-- 
+	<div th:include="common :: nav-menu"></div>
+ 	 -->
+	<div class="container">
+
+		<h2 class="page-header" align="center">FED Application Demo</h2>
+		
+
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">Search!</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<HR align=center color=#987cb9 SIZE=5>
+	<div class="container">
+		<div id="item" class="row" th:if="${item!=null}">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						Details For Item: <span th:text="${item.id}">item1</span>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<div class="panel panel-success">
+						<div class="panel-heading">Identification Details 鉴定详情</div>
+						<table class="table table-bordered table-condensed">
+							<tr>
+								<td>ID 位号</td>
+								<td th:text="${item.id}">100</td>
+							</tr>
+							<tr>
+								<td>Name 名称</td>
+								<td th:text="${item.name}">name</td>
+							</tr>
+							<tr>
+								<td>Class 类型</td>
+								<td th:text="${item.className}">name</td>
+							</tr>
+							<tr>
+								<td>Facility 设施</td>
+								<td th:text="${item.facilityName}">name</td>
+							</tr>
+							<tr>
+								<td>System 系统</td>
+								<td th:text="${item.systemName}">name</td>
+							</tr>
+							<tr>
+								<td>Sub System 子系统</td>
+								<td th:text="${item.subSystemName}">name</td>
+							</tr>
+							<tr>
+								<td>Location 地点</td>
+								<td th:text="${item.locationName}">name</td>
+							</tr>
+							<tr>
+								<td>Sub Location 子地点</td>
+								<td th:text="${item.subLocationName}">name</td>
+							</tr>
+							<tr>
+								<td>Component Status</td>
+								<td th:text="${item.status}">name</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="panel panel-success">
+						<div class="panel-heading">Document References 参考文件</div>
+						<table class="table table-bordered table-condensed">
+							<tr th:each="doc:${item.documents}">
+								<td th:text="${doc.documentClassName}">Data Sheet</td>
+								<td><a href="#" th:href="@{${doc.docUrl}}" target="_blank"><span
+										th:text="${doc.id}+' : '+ ${doc.name}">filename</span></a></td>
+
+							</tr>
+						</table>
+					</div>
+
+					<div class="panel panel-success">
+						<div class="panel-heading">Associations 联系</div>
+						<table class="table table-bordered table-condensed">
+							<tr th:if="${item.parentItem!=null}">
+								<td>Parent</td>
+								<td
+									th:text="${item.parentItem.className} + ' '+${item.parentItem.id}">1</td>
+							</tr>
+							<tr th:each="f: ${item.connectedFromItems}">
+								<td>Connected From</td>
+								<td th:text="${f.className} + ' '+${f.id}">2</td>
+							</tr>
+							<tr th:each="t: ${item.connectedToItems}">
+								<td>Connected To</td>
+								<td th:text="${t.className} + ' '+${t.id}">3</td>
+							</tr>
+							<tr th:each="c: ${item.childItems}">
+								<td>Children</td>
+								<td th:text="${c.className} + ' '+${c.id}">4</td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="panel panel-success">
+						<div class="panel-heading">Technical Details 技术详情</div>
+						<table class="table table-bordered table-condensed">
+							<tr th:each="a: ${item.attributes}">
+								<td th:text="${a.className}">Attribute Name</td>
+								<td th:text="${a.attributeName}">1</td>
+								<td th:text="${a.attributeValue}">1</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

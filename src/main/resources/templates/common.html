@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link href="css/footer.css" rel="stylesheet">
+</head>
 <body>
-	<div th:fragment="nav-menu">
-		<nav class="navbar navbar-default">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">HF eLearning</a>
-				</div>
-				<div class="nav navbar-nav navbar-right" id="navbar">
-					<form th:if="${user.role} == null or ${user.username} == ''"
-						class="navbar-form navbar-right" th:action="@{/login}"
-						th:object="${user}" method="post">
-						<div class="form-group">
-							<input type="text" name="username" id="username"
-								class="form-control input-sm" placeholder="username"
-								th:value="*{username}" /> <input type="password"
-								class="form-control input-sm" name="password"
-								placeholder="password" th:value="*{password}" /> <input
-								type="submit" value="login" />
-							<div>
-								<ul th:if="${#fields.hasAnyErrors()}">
-									<li th:each="err : ${#fields.allErrors()}" th:text="${err}">error
-										message</li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div>
-				<ul th:if="${user.username} !='' and ${user.role} != null "
-					class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false" th:text="${user.username}">HanHan <span
-							class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="/logout">logout</a></li>
-						</ul></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Home</a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Repository <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Import</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="/question/list?questionType=singleChoice">Single
-									Choice <span class="badge" th:text="${singleQuestionCount}">1</span>
-							</a></li>
-							<li><a href="/question/list?questionType=multipleChoice">Multiple
-									Choice <span class="badge" th:text="${multipleQuestionCount}">2</span>
-							</a></li>
-							<li><a href="/question/list?questionType=trueFalse">True/False
-									<span class="badge" th:text="${trueFalseQuestionCount}">3</span>
-							</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Practice <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="/question/next">Single Choice</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Examination<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="/generatePaper">Exam</a></li>
 
-						</ul></li>
-				</ul>
+	<div th:fragment="nav-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<img src="img/img_sitename_cyan.png">
+				</div>
+				<div class="col-lg-8"></div>
+				<div class="col-lg-1">
+					<img src="img/hallmark.png">
+				</div>
 			</div>
-		</nav>
+
+			<nav class="navbar navbar-light bg-success">
+				<div class="container">
+					<ul class="nav navbar-nav navbar-left">
+						<li><a href="#">Home</a></li>
+						<li><a href="/search">Search</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"> Data and Document Explorer <span
+								class="caret"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Document Tree</a></li>
+								<li><a href="#">Asset Register Tree</a></li>
+								<li><a href="#">Commissioning Tree</a></li>
+
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">Reports <span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Electrical</a></li>
+								<li><a href="#">Instrumentation</a></li>
+								<li><a href="#">Mechanical</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">DMS<span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">KDL - Key Document Library</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<img src="img/cdb_logo.jpg">
+				</div>
+				<div class="col-lg-7">
+					<h3>Chuangdongbei Gas Project 川东北天然气项目</h3>
+				</div>
+
+			</div>
+			<div class="row"></div>
+		</div>
+	</div>
+
+	<div th:fragment="searchBar">
+		<div class="container" id="search">
+			<form method="get" th:action="@{/searchKeyword}">
+				<div class="row">
+					<div class="form-group">
+						<label class="radio-inline"> <input type="radio"
+							name="searchType" id="all" value="all"> All 所有
+						</label> <label class="radio-inline"> <input type="radio"
+							name="searchType" id="equipment" value="equipment">
+							Tagged Items / Instrument Loops 有位号的设备
+						</label> <label class="radio-inline"> <input type="radio"
+							name="searchType" id="line" value="line"> Lines / Line
+							Segments 管线
+						</label> <label class="radio-inline"> <input type="radio"
+							name="searchType" id="docment" value="docment"> Documents
+							文件
+						</label>
+					</div>
+					<div class="form-group">
+						<label class="checkbox-inline"> <input type="checkbox"
+							id="onlyID" value="onlyID"> Search ID fields only
+						</label> <label class="checkbox-inline"> <input type="checkbox"
+							id="matchWholeValue" value="matchWholeValue"> Match Whole
+							Value
+						</label> <select>
+							<option>100</option>
+							<option>20</option>
+							<option>50</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Search for..." id="kword" name="kword"> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="submit">Search!</button>
+							</span>
+						</div>
+					</div>
+					<div class="col-lg-6"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div th:fragment="footer">
+		<footer class="page-footer font-small footer">
+			<div class="footer-copyright text-center py-3">
+				© 2019 Copyright: <a href=""> fed.pccoc.net</a>
+			</div>
+		</footer>
 	</div>
 </body>
 </html>
