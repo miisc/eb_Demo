@@ -25,6 +25,8 @@ public interface ItemDAO {
 	public List<Item> findConnectToItemByID(@Param("taggeditemID") String taggeditemID);
 
 	public List<Document> findDocumentByItemID(@Param("taggeditemID") String taggeditemID);
+	
+	public Document findDocumentByID(@Param("docID") String docID);
 
 	public List<ItemAttribute> findAttributeByItemID(@Param("taggeditemID") String taggeditemID);
 

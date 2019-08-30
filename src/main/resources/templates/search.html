@@ -70,9 +70,10 @@
 					<div class="panel-body" th:unless="${#lists.isEmpty(itemName)}"
 						th:each="item : ${itemName}"
 						th:if="${item.className} eq 'TAGGED ITEM'">
-						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
-							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
-							系统 : 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="'findItemDetailsByID/'+${item.id}"> <span
+							th:text="${item.id} +' : '+ ${item.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 			</div>
@@ -84,9 +85,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(itemID)}"
 						th:each="item : ${itemID}" th:if="${item.className} eq 'LINE'">
-						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
-							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
-							系统 : 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="'findItemDetailsByID/'+${item.id}"> <span
+							th:text="${item.id} +' : '+ ${item.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -95,9 +97,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(itemClass)}"
 						th:each="item : ${itemClass}" th:if="${item.className} eq 'LINE'">
-						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
-							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
-							系统 : 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="'findItemDetailsByID/'+${item.id}"> <span
+							th:text="${item.id} +' : '+ ${item.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -106,9 +109,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(itemName)}"
 						th:each="item : ${itemName}" th:if="${item.className} eq 'LINE'">
-						<span th:text="${item.id} +' : '+ ${item.name}">FMC-0102 :
-							CA System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System
-							系统 : 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="'findItemDetailsByID/'+${item.id}"> <span
+							th:text="${item.id} +' : '+ ${item.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 			</div>
@@ -120,9 +124,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(docID)}"
 						th:each="doc : ${docID}">
-						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
-							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
-							: 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="${doc.docUrl}" target="_blank"><span
+							th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -131,9 +136,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(docClass)}"
 						th:each="doc : ${docClass}">
-						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
-							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
-							: 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="${doc.docUrl}" target="_blank"><span
+							th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -142,9 +148,10 @@
 					</div>
 					<div class="panel-body" th:unless="${#lists.isEmpty(docName)}"
 						th:each="doc : ${docName}">
-						<span th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
-							System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
-							: 003, Sub System 子系统 : 003-011 </span>
+						<a th:href="${doc.docUrl}" target="_blank"><span
+							th:text="${doc.id} +' : '+ ${doc.name}">FMC-0102 : CA
+								System Cabinet KXP-GEN-05 Duty Room Facility 设施 : KXP, System 系统
+								: 003, Sub System 子系统 : 003-011 </span></a>
 					</div>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -102,78 +103,81 @@ public class ItemController {
 		return "";
 	}
 
-	@GetMapping(value = "/searchKeyword")
+	@RequestMapping(value = "/searchKeyword")
 	// @ResponseBody
 	public String search(@RequestParam String kword, @RequestParam(defaultValue = "all") String searchType,
-			@RequestParam(defaultValue = "false") boolean IDOnly,
-			@RequestParam(defaultValue = "false") boolean matchWholeWord, ModelMap model) {
+			@RequestParam(value = "IDOnly", defaultValue = "0") String IDOnly,
+			@RequestParam(value = "matchWholeWord", defaultValue = "0") String matchWholeWord, ModelMap model) {
+
+		boolean OnlyID = IDOnly.equals("1") ? true : false;
+		boolean mWholeWord = matchWholeWord.equals("1") ? true : false;
 
 		int recordCount = 0;
-		if (IDOnly == true) {
+		if (OnlyID == true) {
 			if (searchType.equals("document")) {
-				List<Document> t = itemDao.searchDocIDByKword(kword, matchWholeWord);
+				List<Document> t = itemDao.searchDocIDByKword(kword, mWholeWord);
 				model.addAttribute("docID", t);
 				recordCount += t.size();
 			} else if (searchType.equals("all")) {
-				List<Document> t = itemDao.searchDocIDByKword(kword, matchWholeWord);
+				List<Document> t = itemDao.searchDocIDByKword(kword, mWholeWord);
 				model.addAttribute("docID", t);
 				recordCount += t.size();
 
-				List<Item> t1 = itemDao.searchItemIDByKword(kword, searchType, matchWholeWord);
+				List<Item> t1 = itemDao.searchItemIDByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemID", t1);
 				recordCount += t1.size();
 			} else {
-				List<Item> t = itemDao.searchItemIDByKword(kword, searchType, matchWholeWord);
+				List<Item> t = itemDao.searchItemIDByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemID", t);
 				recordCount += t.size();
 			}
 		} else {
 			if (searchType.equals("equipment") || searchType.equals("line")) {
-				List<Item> t = itemDao.searchItemIDByKword(kword, searchType, matchWholeWord);
+				List<Item> t = itemDao.searchItemIDByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemID", t);
 				recordCount += t.size();
 
-				t = itemDao.searchItemClassByKword(kword, searchType, matchWholeWord);
+				t = itemDao.searchItemClassByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemClass", t);
 				recordCount += t.size();
 
-				t = itemDao.searchItemNameByKword(kword, searchType, matchWholeWord);
+				t = itemDao.searchItemNameByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemName", t);
 				recordCount += t.size();
 			} else if (searchType.equals("document")) {
-				List<Document> t = itemDao.searchDocIDByKword(kword, matchWholeWord);
+				List<Document> t = itemDao.searchDocIDByKword(kword, mWholeWord);
 				model.addAttribute("docID", t);
 				recordCount += t.size();
 
-				t = itemDao.searchDocClassByKword(kword, matchWholeWord);
+				t = itemDao.searchDocClassByKword(kword, mWholeWord);
 				model.addAttribute("docClass", t);
 				recordCount += t.size();
 
-				t = itemDao.searchDocNameByKword(kword, matchWholeWord);
+				t = itemDao.searchDocNameByKword(kword, mWholeWord);
 				model.addAttribute("docName", t);
 				recordCount += t.size();
 			} else if (searchType.equals("all")) {
-				List<Document> t = itemDao.searchDocIDByKword(kword, matchWholeWord);
+				List<Document> t = itemDao.searchDocIDByKword(kword, mWholeWord);
 				model.addAttribute("docID", t);
 				recordCount += t.size();
 
-				t = itemDao.searchDocClassByKword(kword, matchWholeWord);
+				t = itemDao.searchDocClassByKword(kword, mWholeWord);
 				model.addAttribute("docClass", t);
 				recordCount += t.size();
 
-				t = itemDao.searchDocNameByKword(kword, matchWholeWord);
+				t = itemDao.searchDocNameByKword(kword, mWholeWord);
 				model.addAttribute("docName", t);
 				recordCount += t.size();
 
-				List<Item> ti = itemDao.searchItemIDByKword(kword, searchType, matchWholeWord);
+				List<Item> ti = itemDao.searchItemIDByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemID", ti);
 				recordCount += ti.size();
 
-				ti = itemDao.searchItemClassByKword(kword, searchType, matchWholeWord);
+				ti = itemDao.searchItemClassByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemClass", ti);
 				recordCount += ti.size();
 
-				ti = itemDao.searchItemNameByKword(kword, searchType, matchWholeWord);
+				ti = itemDao.searchItemNameByKword(kword, searchType, mWholeWord);
 				model.addAttribute("itemName", ti);
 				recordCount += ti.size();
 			}

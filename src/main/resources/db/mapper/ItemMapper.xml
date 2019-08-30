@@ -13,7 +13,8 @@
 
 	<sql id="itemColumns">${alias}.taggeditemuid uid, ${alias}.taggeditemID id,
 		${alias}.taggeditemname name, ${alias}.operational_status status,
-		${alias}.essiClass className, ${alias}.facilityName, ${alias}.systemName,
+		${alias}.essiClass className, ${alias}.facilityName,
+		${alias}.systemName,
 		${alias}.subSystemName, ${alias}.locationName,
 		${alias}.subLocationName
 	</sql>
@@ -94,13 +95,24 @@
 		resultType="Document">
 		select distinct d.documentuid uid, d.documentid id,
 		d.documentname name, i.documentclassname, i.ebdocumentclassname,
-		d.[DMS URL]
+		d.[DMS URL] docUrl
 		from [cdbcopy].[asset_objectdocument] i inner join
 		[cdbcopy].[asset_document] d
 		on i.documentuid = d.documentuid
 		where
 		i.objectid = #{taggeditemID}
 	</select>
+
+<!-- 	<select id="findDocumentByID" parameterType="String"
+		resultType="Document">
+		select distinct d.documentuid uid, d.documentid id,
+		d.documentname name, d.essiClass documentClassName, d.ebClassName ebdocumentclassname,
+		d.[DMS URL] docUrl
+		from 
+		[cdbcopy].[asset_document] d
+		where
+		d.documentid = #{docID}
+	</select> -->
 
 	<select id="findAttributeByItemID" parameterType="String"
 		resultType="ItemAttribute">
@@ -182,7 +194,7 @@
 			<if test=" matchWholeWord == false">
 				taggeditemID like concat('%',#{kword},'%')
 			</if>
-			<if test=" searchType == 'item' ">
+			<if test=" searchType == 'equipment' ">
 				and c.essiClass = 'TAGGED ITEM'
 			</if>
 			<if test=" searchType == 'line' ">
@@ -206,7 +218,7 @@
 			<if test=" matchWholeWord == true">
 				className = #{kword}
 			</if>
-			<if test=" searchType == 'item' ">
+			<if test=" searchType == 'equipment' ">
 				and c.essiClass = 'TAGGED ITEM'
 			</if>
 			<if test=" searchType == 'line' ">
@@ -229,7 +241,7 @@
 			<if test=" matchWholeWord == true">
 				taggedItemName = #{kword}
 			</if>
-			<if test=" searchType == 'item' ">
+			<if test=" searchType == 'equipment' ">
 				and c.essiClass = 'TAGGED ITEM'
 			</if>
 
@@ -240,7 +252,8 @@
 	</select>
 
 	<select id="searchDocIDByKword" resultType="Document">
-		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		select distinct documentuid uid, documentid id, documentname name,
+		essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
 		from
 		cdbcopy.asset_document c
 		<where>
@@ -254,7 +267,8 @@
 	</select>
 
 	<select id="searchDocClassByKword" resultType="Document">
-		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		select distinct documentuid uid, documentid id, documentname name,
+		essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
 		from
 		cdbcopy.asset_document c
 		<where>
@@ -268,7 +282,8 @@
 	</select>
 
 	<select id="searchDocNameByKword" resultType="Document">
-		select distinct documentuid uid, documentid id, documentname name, essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
+		select distinct documentuid uid, documentid id, documentname name,
+		essiClass documentClassName, ebClassName ebDocumentClassName, [DMS URL] docUrl
 		from
 		cdbcopy.asset_document c
 		<where>
